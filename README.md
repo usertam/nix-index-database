@@ -1,5 +1,5 @@
 # nix-index-db
-Tri-weekly updated, multi-channel, multi-platform prebuilt [`nix-index`](https://github.com/usertam/nix-index) indices.
+Daily updated, multi-channel, multi-platform prebuilt [`nix-index`](https://github.com/usertam/nix-index) indices.
 
 ## Source
 Releases now follow _both_ the
