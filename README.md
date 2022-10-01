@@ -1,5 +1,5 @@
 # nix-index-db
-## release 220930.671fabc
+## release 221001.8a94df3
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`671fabc`](https://github.com/NixOS/nixpkgs/commit/671fabc93b4d1a3b38499c7b20776477c91b2b15)
-- Build date: `2022-09-30`
+- Built against commit: [`8a94df3`](https://github.com/NixOS/nixpkgs/commit/8a94df399034691a825d81b7d985f914861b087e)
+- Build date: `2022-10-01`
