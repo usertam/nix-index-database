@@ -1,5 +1,5 @@
 # nix-index-db
-## standalone release 221003.a62844b
+## standalone release 221004.0dd481b
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`a62844b`](https://github.com/NixOS/nixpkgs/commit/a62844b302507c7531ad68a86cb7aa54704c9cb4)
-- Build date: `2022-10-03`
+- Built against commit: [`0dd481b`](https://github.com/NixOS/nixpkgs/commit/0dd481b2ad61effd97d7215046d564953a33e526)
+- Build date: `2022-10-04`
