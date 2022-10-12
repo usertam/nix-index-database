@@ -1,5 +1,5 @@
 # nix-index-db
-## release 221011.14ccaae
+## release 221012.e0ed589
 - Built against channel: [`nixpkgs-unstable`](https://github.com/nixos/nixpkgs/tree/nixpkgs-unstable)
-- Built against commit: [`14ccaae`](https://github.com/NixOS/nixpkgs/commit/14ccaaedd95a488dd7ae142757884d8e125b3363)
-- Build date: `2022-10-11`
+- Built against commit: [`e0ed589`](https://github.com/NixOS/nixpkgs/commit/e0ed589d7422c1d7a1bdd1e81289e2428c6ec2a3)
+- Build date: `2022-10-12`
