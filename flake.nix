@@ -16,17 +16,11 @@
     in {
       packages = forAllSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
-        metadata = pkgs.lib.importJSON ./metadata.json;
+        metadata = nixpkgs.lib.importJSON ./metadata.json;
       in {
-        default = pkgs.stdenvNoCC.mkDerivation rec {
-          pname = "nix-index-db";
-          version = metadata.version;
-          src = self;
-          phases = [ "installPhase" ];
-          installPhase = ''
-            install -Dm444 -t $out ${src}/indices/index-*
-          '';
-        };
+        default = pkgs.runCommandLocal "nix-index-db-r${metadata.version}" {} ''
+          cp -r ${self}/indices $out
+        '';
         defaultPackage = self.packages.${system}.default;
       });
     };
