@@ -28,5 +28,17 @@
         '';
         defaultPackage = self.packages.${system}.default;
       });
+
+      apps = forAllSystems (system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = {
+          type = "app";
+          program = builtins.toString (pkgs.writeShellScript "install.sh" ''
+            mkdir -p $HOME/.cache/nix-index
+            install -m444 ${self.packages.${system}.default} $HOME/.cache/nix-index/files
+          '');
+        };
+      });
     };
 }
