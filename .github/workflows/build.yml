@@ -86,7 +86,7 @@ jobs:
     - name: Generate release flake and metadata
       run: |
         cp releases/flake.nix .
-        python3 releases/describe.py "r${{ steps.tag.outputs.tag }}" ${{ matrix.channel }} $(<revision.txt)
+        python3 releases/describe.py ${{ steps.tag.outputs.tag }} ${{ matrix.channel }} $(<revision.txt)
     - name: Commit r${{ steps.tag.outputs.tag }} to releases/${{ matrix.channel }}
       run: |
         # set HEAD to channel release branch, or new orphan branch if none exists on remote
@@ -109,7 +109,7 @@ jobs:
     - name: Generate standalone flake and metadata
       run: |
         cp standalone/flake.nix .
-        python3 standalone/describe.py "s${{ steps.tag.outputs.tag }}" ${{ matrix.channel }} $(<revision.txt)
+        python3 standalone/describe.py ${{ steps.tag.outputs.tag }} ${{ matrix.channel }} $(<revision.txt)
     - name: Commit s${{ steps.tag.outputs.tag }} to standalone/${{ matrix.channel }}
       run: |
         # set HEAD to channel standalone branch, or new orphan branch if none exists on remote

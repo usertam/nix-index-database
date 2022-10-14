@@ -16,22 +16,16 @@
     in {
       packages = forAllSystems (system: let
         pkgs = nixpkgs.legacyPackages.${system};
-        metadata = pkgs.lib.importJSON ./metadata.json;
+        metadata = nixpkgs.lib.importJSON ./metadata.json;
         index = metadata.platform.${system};
-      in {
-        default = pkgs.stdenvNoCC.mkDerivation rec {
-          pname = "nix-index-db";
-          version = metadata.version;
-          src = let tag = builtins.substring 1 14 version;
-          in builtins.fetchurl {
-            url = "https://github.com/usertam/nix-index-db/raw/r${tag}/${index.store}";
-            sha256 = index.hash;
-          };
-          phases = [ "installPhase" ];
-          installPhase = ''
-            install -Dm444 ${src} $out
-          '';
+        index-bin = builtins.fetchurl {
+          url = "https://github.com/usertam/nix-index-db/raw/r${metadata.version}/${index.store}";
+          sha256 = index.hash;
         };
+      in {
+        default = pkgs.runCommandLocal "nix-index-db-s${metadata.version}" {} ''
+          install -m444 ${index-bin} $out
+        '';
         defaultPackage = self.packages.${system}.default;
       });
     };
