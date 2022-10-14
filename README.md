@@ -1,24 +1,16 @@
 # nix-index-db
 Daily updated, multi-channel, multi-platform prebuilt [`nix-index`](https://github.com/usertam/nix-index) indices.
 
-## Source
-Releases now follow _both_ the
-[`nixpkgs-unstable`](https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixpkgs-unstable) branch and the nixpkgs
-[`master`](https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/master) branch.
-Pick your flavors! (Or, just pull request and add one!)
+## Flavors
+| Channels                | All platform indices        | Host platform only            |
+| ----------------------- | --------------------------- | ----------------------------- |
+| [`master`][2]           | `releases/master`           | `standalone/master`           |
+| [`nixpkgs-unstable`][2] | `releases/nixpkgs-unstable` | `standalone/nixpkgs-unstable` |
 
 ## Oneshot Install
-To preform a oneshot install on `master`, do:
+This installs the index to `~/.cache/nix-index/files`.
 ```sh
-# determine platform with flakes
-PLATFORM=$(nix eval --raw nixpkgs#system)
-
-# to explicitly state platform instead, do:
-# PLATFORM='aarch64-linux'
-
-mkdir -p $HOME/.cache/nix-index
-curl -o $HOME/.cache/nix-index/files \
-    https://raw.githubusercontent.com/usertam/nix-index-db/releases/master/indices/index-$PLATFORM
+nix run github:usertam/nix-index-db/standalone/master
 ```
 
 ## Flakes Install
@@ -30,19 +22,20 @@ To install `nixpkgs-unstable` standalone using flakes in home-manager:
     nix-index-db.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nix-index-db, ... }:
-    let
-      system = "x86_64-linux";
-      nix-index-bin = nix-index-db.packages.${system}.default;
-    in {
-      homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
-        extraSpecialArgs = { inherit nix-index-bin; };
-        modules = [
-          ({ nix-index-bin, ... }: {
-            home.file.".cache/nix-index/files".source = nix-index-bin;
-          })
-        ];
-      };
+  outputs = inputs: {
+    homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
+      extraSpecialArgs = { inherit inputs; };
+      modules = [
+        ({ pkgs, inputs, ... }: {
+          home.file.".cache/nix-index/files" = {
+            source = inputs.nix-index-db.packages.${pkgs.system}.default;
+          };
+        })
+      ];
     };
+  };
 }
 ```
+
+[1]: https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/master
+[2]: https://api.github.com/repos/NixOS/nixpkgs/git/refs/heads/nixpkgs-unstable
