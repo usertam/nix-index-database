@@ -73,11 +73,10 @@ jobs:
         mkdir indices
         mv index-* indices
     - name: Generate generic release tag
-      id: tag
-      run: echo "::set-output name=tag::$(echo `date +'%y%m%d'`.`grep -oE '^.{7}' revision.txt`)"
+      run: echo "TAG=`date +'%y%m%d'`.`grep -oE '^.{7}' revision.txt`" >> $GITHUB_ENV
     - name: Assert release tag is available
       run: |
-        ! git ls-remote --exit-code origin "refs/tags/r${{ steps.tag.outputs.tag }}"
+        ! git ls-remote --exit-code origin "refs/tags/r${{ env.TAG }}"
     - name: Write release markdown
       run: |
         >> release.md echo "- Built against channel: [\`${{ matrix.channel }}\`](https://github.com/nixos/nixpkgs/tree/${{ matrix.channel }})"
@@ -86,8 +85,8 @@ jobs:
     - name: Generate release flake and metadata
       run: |
         cp releases/flake.nix .
-        python3 releases/describe.py ${{ steps.tag.outputs.tag }} ${{ matrix.channel }} $(<revision.txt)
-    - name: Commit r${{ steps.tag.outputs.tag }} to releases/${{ matrix.channel }}
+        python3 releases/describe.py ${{ env.TAG }} ${{ matrix.channel }} $(<revision.txt)
+    - name: Commit r${{ env.TAG }} to releases/${{ matrix.channel }}
       run: |
         # set HEAD to channel release branch, or new orphan branch if none exists on remote
         git fetch origin releases/${{ matrix.channel }}:releases/${{ matrix.channel }} || true
@@ -99,18 +98,18 @@ jobs:
         git add flake.lock
         # write and add README.md
         >  README.md echo "# ${GITHUB_REPOSITORY#*/}"
-        >> README.md echo "## release ${{ steps.tag.outputs.tag }}"
+        >> README.md echo "## release ${{ env.TAG }}"
         >> README.md cat release.md
         git add README.md
         # commit, tag and push
-        git commit -m "release ${{ steps.tag.outputs.tag }}"
-        git tag "r${{ steps.tag.outputs.tag }}"
-        git push origin releases/${{ matrix.channel }} "r${{ steps.tag.outputs.tag }}"
+        git commit -m "release ${{ env.TAG }}"
+        git tag "r${{ env.TAG }}"
+        git push origin releases/${{ matrix.channel }} "r${{ env.TAG }}"
     - name: Generate standalone flake and metadata
       run: |
         cp standalone/flake.nix .
-        python3 standalone/describe.py ${{ steps.tag.outputs.tag }} ${{ matrix.channel }} $(<revision.txt)
-    - name: Commit s${{ steps.tag.outputs.tag }} to standalone/${{ matrix.channel }}
+        python3 standalone/describe.py ${{ env.TAG }} ${{ matrix.channel }} $(<revision.txt)
+    - name: Commit s${{ env.TAG }} to standalone/${{ matrix.channel }}
       run: |
         # set HEAD to channel standalone branch, or new orphan branch if none exists on remote
         git fetch origin standalone/${{ matrix.channel }}:standalone/${{ matrix.channel }} || true
@@ -122,20 +121,20 @@ jobs:
         git add flake.lock
         # write and add README.md
         >  README.md echo "# ${GITHUB_REPOSITORY#*/}"
-        >> README.md echo "## standalone release ${{ steps.tag.outputs.tag }}"
+        >> README.md echo "## standalone release ${{ env.TAG }}"
         >> README.md cat release.md
         git add README.md
         # commit, tag and push
-        git commit -m "standalone release ${{ steps.tag.outputs.tag }}"
-        git tag "s${{ steps.tag.outputs.tag }}"
-        git push origin standalone/${{ matrix.channel }} "s${{ steps.tag.outputs.tag }}"
+        git commit -m "standalone release ${{ env.TAG }}"
+        git tag "s${{ env.TAG }}"
+        git push origin standalone/${{ matrix.channel }} "s${{ env.TAG }}"
     - uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        name: "r${{ steps.tag.outputs.tag }}"
+        name: "r${{ env.TAG }}"
         body_path: release.md
-        tag_name: "r${{ steps.tag.outputs.tag }}"
+        tag_name: "r${{ env.TAG }}"
         files: |
           indices/index-*
           revision.txt
