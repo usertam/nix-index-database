@@ -1,5 +1,5 @@
 # nix-index-db
-## release 221013.4820e2d
+## release 221014.ae24d58
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`4820e2d`](https://github.com/NixOS/nixpkgs/commit/4820e2da740d45f8a434dd8c172685e18273bfc8)
-- Build date: `2022-10-13`
+- Built against commit: [`ae24d58`](https://github.com/NixOS/nixpkgs/commit/ae24d583aefba3220fe20f92adcf7b39bdacb5bb)
+- Build date: `2022-10-14`
