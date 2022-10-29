@@ -1,5 +1,5 @@
 # nix-index-db
-## release 221028.cfd2641
+## release 221029.a6f49b9
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`cfd2641`](https://github.com/NixOS/nixpkgs/commit/cfd2641067c19042ad4cd1d5e5217c0f92b9f8c2)
-- Build date: `2022-10-28`
+- Built against commit: [`a6f49b9`](https://github.com/NixOS/nixpkgs/commit/a6f49b9f689c9cf85057240b8a5e86f66ae4b86a)
+- Build date: `2022-10-29`
