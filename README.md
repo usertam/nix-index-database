@@ -1,5 +1,5 @@
 # nix-index-db
-## release 221201.adcf1b1
+## release 221202.bf02009
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`adcf1b1`](https://github.com/NixOS/nixpkgs/commit/adcf1b105b3783483f982a52337822f0320fb949)
-- Build date: `2022-12-01`
+- Built against commit: [`bf02009`](https://github.com/NixOS/nixpkgs/commit/bf02009f8a9952bcde1d306888e3e6b726d41ed8)
+- Build date: `2022-12-02`
