@@ -1,5 +1,5 @@
 # nix-index-db
-## release 230106.298add3
+## release 230111.35f1f86
 - Built against channel: [`nixpkgs-unstable`](https://github.com/nixos/nixpkgs/tree/nixpkgs-unstable)
-- Built against commit: [`298add3`](https://github.com/NixOS/nixpkgs/commit/298add347c2bbce14020fcb54051f517c391196b)
-- Build date: `2023-01-06`
+- Built against commit: [`35f1f86`](https://github.com/NixOS/nixpkgs/commit/35f1f865c03671a4f75a6996000f03ac3dc3e472)
+- Build date: `2023-01-11`
