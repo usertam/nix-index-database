@@ -28,19 +28,15 @@ jobs:
         channel: [ nixpkgs-unstable, master ]
         platform: [ aarch64-darwin, aarch64-linux, i686-linux, x86_64-darwin, x86_64-linux ]
     steps:
-    - uses: cachix/install-nix-action@v18
+    - uses: cachix/install-nix-action@v20
       with:
-        nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz
-    - uses: cachix/cachix-action@v11
-      with:
-        name: nix-index
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        nix_path: nixpkgs=channel:nixpkgs-unstable
     - name: Download revision artifact
       uses: actions/download-artifact@v3
       with:
         name: artifact-${{ matrix.channel }}-revision
     - name: Run nix-index
-      run: nix shell github:usertam/nix-index -c nix-index --db ./out --nixpkgs https://github.com/NixOS/nixpkgs/tarball/$(<revision.txt) --system ${{ matrix.platform }} 2>&1 | grep -v '+ generating index'
+      run: nix run nixpkgs#nix-index -- --db ./out --nixpkgs https://github.com/NixOS/nixpkgs/tarball/$(<revision.txt) --system ${{ matrix.platform }} 2>&1 | grep -v '+ generating index'
     - name: Rename built index
       run: mv out/files index-${{ matrix.platform }}
     - name: Upload index artifact
@@ -58,10 +54,10 @@ jobs:
         channel: [ nixpkgs-unstable, master ]
     steps:
     - uses: actions/checkout@v3
-    - uses: cachix/install-nix-action@v18
+    - uses: cachix/install-nix-action@v20
       with:
-        nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/nixpkgs-unstable.tar.gz
-    - name: Set up github-actions name and email
+        nix_path: nixpkgs=channel:nixpkgs-unstable
+    - name: Set up github-actions identity
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions[bot]@users.noreply.github.com"
