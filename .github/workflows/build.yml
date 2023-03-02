@@ -85,7 +85,7 @@ jobs:
     - name: Commit r${{ env.TAG }} to releases/${{ matrix.channel }}
       run: |
         # set HEAD to channel release branch, or new orphan branch if none exists on remote
-        git fetch origin releases/${{ matrix.channel }}:releases/${{ matrix.channel }} || true
+        git fetch --depth=1 origin releases/${{ matrix.channel }}:releases/${{ matrix.channel }} || true
         git symbolic-ref HEAD refs/heads/releases/${{ matrix.channel }}
         git reset
         # add files to git index before updating flake.lock
@@ -108,7 +108,7 @@ jobs:
     - name: Commit s${{ env.TAG }} to standalone/${{ matrix.channel }}
       run: |
         # set HEAD to channel standalone branch, or new orphan branch if none exists on remote
-        git fetch origin standalone/${{ matrix.channel }}:standalone/${{ matrix.channel }} || true
+        git fetch --depth=1 origin standalone/${{ matrix.channel }}:standalone/${{ matrix.channel }} || true
         git symbolic-ref HEAD refs/heads/standalone/${{ matrix.channel }}
         git reset
         # add files to git index before updating flake.lock
