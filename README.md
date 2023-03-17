@@ -1,5 +1,5 @@
 # nix-index-db
-## release 230315.abb2ade
+## release 230317.bf32c70
 - Built against channel: [`master`](https://github.com/nixos/nixpkgs/tree/master)
-- Built against commit: [`abb2ade`](https://github.com/NixOS/nixpkgs/commit/abb2ade261c33516716aa21068d8c10c48d03367)
-- Build date: `2023-03-15`
+- Built against commit: [`bf32c70`](https://github.com/NixOS/nixpkgs/commit/bf32c7025312202986303b15127ae6b87e3e9229)
+- Build date: `2023-03-17`
