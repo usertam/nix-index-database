@@ -1,5 +1,5 @@
 # nix-index-db
-## standalone release 230318.126f49a
+## standalone release 230412.5a156c2
 - Built against channel: [`nixpkgs-unstable`](https://github.com/nixos/nixpkgs/tree/nixpkgs-unstable)
-- Built against commit: [`126f49a`](https://github.com/NixOS/nixpkgs/commit/126f49a01de5b7e35a43fd43f891ecf6d3a51459)
-- Build date: `2023-03-18`
+- Built against commit: [`5a156c2`](https://github.com/NixOS/nixpkgs/commit/5a156c2e89c1eca09b40bcdcee86760e0e4d79a9)
+- Build date: `2023-04-12`
